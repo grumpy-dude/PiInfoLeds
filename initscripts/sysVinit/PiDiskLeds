@@ -1,27 +1,27 @@
 #!/bin/sh
 ### BEGIN INIT INFO
-# Provides:          netledPi
-# Required-Start:    $network
+# Provides:          PiDiskLeds
+# Required-Start:    $local_fs
 # Required-Stop:
 # Should-Start:
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
-# Short-Description: Start the netledPi daemon
-# Description:       A daemon that blinks an LED connected to a GPIO pin on network activity
+# Default-Start:      2 3 4 5
+# Default-Stop:
+# Short-Description: Start the PiDiskLeds daemon
+# Description:       A daemon that blinks an LED connected to a GPIO pin on disk activity
 ### END INIT INFO
 
 PATH=/usr/local/bin:/sbin:/usr/sbin:/bin:/usr/bin
-NAME=netledPi
-DESC="Network activity light"
+NAME=PiDiskLeds
+DESC="Disk activity light"
 # Define LSB log_* functions.
 # Depend on lsb-base (>= 3.0-6) to ensure that this file is present.
 . /lib/lsb/init-functions
 . /lib/init/vars.sh
 
 do_start () {
-        # Start network activity light
+        # Start disk activity light
         log_daemon_msg "Starting $DESC" "$NAME"
-        netledPi -d
+        PiDiskLeds -d
         log_end_msg $?
 }
 
@@ -36,11 +36,11 @@ case "$1" in
         ;;
   stop)
         log_daemon_msg "Stopping $DESC" "$NAME"
-        killall netledPi
+        killall PiDiskLeds
         log_end_msg $?
         ;;
   *)
-        echo "Usage: netledPi [start|stop]" >&2
+        echo "Usage: PiDiskLeds [start|stop]" >&2
         exit 3
         ;;
 esac

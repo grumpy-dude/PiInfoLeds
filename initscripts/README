@@ -1,15 +1,60 @@
-Init scripts - to make the programs start automatically at boot.  
-
-If you are running a current Raspbian (Jessie) with systemd:  
-Copy the systemd/*.service files to the /etc/systemd/system/ directory, and then run  
-sudo systemctl daemon-reload  
-sudo systemctl enable hddledPi.service  
-sudo systemctl enable netledPi.service  
-
-If you are running an older Raspbian (Wheezy) with SysV init:  
-Copy the sysVinit/* files to the /etc/init.d/ directory, and then run  
-sudo update-rc.d enable hddledPi  
-sudo update-rc.d enable netledPi  
+The sub-directories of this directory contain configuration files to allow PiDiskLeds and PiNetLeds
+to run automatically during system boot, before any user has logged in.
 
 
-Creating init scripts for actledPi is left as an exercise for the reader ;-)
+./systemd
+---------
+The configuration files in this directory are used if you are running a linux distribution which
+utilizes "systemd" (e.g. Raspbian "Jessie" or Raspbian "Stretch").
+
+1. If needed, edit the "./systemd/*.service" files to add the appropriate "-p", "-r", etc. options to
+   the "ExecStart" line.
+2. Copy the "./systemd/*.service" files to the "/etc/systemd/system/" directory. For example:
+  sudo cp ./systemd/*.service /etc/systemd/system/
+3. Run the following command:
+  sudo systemctl daemon-reload
+4. Run the following commands:
+  sudo systemctl enable PiDiskLeds.service
+  sudo systemctl enable PiNetLeds.service 
+
+The configured LEDs should begin indicating disk and/or network activity upon the next system bootup.
+
+To stop the LEDs from indicating activity, use the following commands:
+  sudo systemctl stop PiDiskLeds.service
+  sudo systemctl stop PiNetLeds.service
+
+To restart the LED indications, use:
+  sudo systemctl start PiDiskLeds.service
+  sudo systemctl start PiNetLeds.service
+
+To prevent the LED indications from automatically starting during boot, use:
+  sudo systemctl disable PiDiskLeds.service
+  sudo systemctl disable PiNetLeds.service
+
+
+./sysVinit
+----------
+The configuration files in this directory are used if you are running a linux distribution which
+utilizes "sysVinit" (e.g. Raspbian "Wheezy").
+
+1. If needed, edit the "./sysVinit/*" files to add the appropriate "-p", "-r", etc. options in the
+   "do_start ()" section
+2. Copy the "./sysVinit/*" files to the "/etc/init.d/" directory. For example:
+  sudo cp ./sysVinit/* /etc/init.d/
+3. Run the following commands: 
+  sudo update-rc.d PiDiskLeds enable
+  sudo update-rc.d PiNetLeds enable
+
+The configured LEDs should begin indicating disk and/or network activity upon the next system bootup.
+
+To stop the LEDs from indicating activity, use the following commands:
+  sudo service PiDiskLeds stop
+  sudo service PiNetLeds stop
+
+To restart the LED indications, use:
+  sudo service PiDiskLeds start
+  sudo service PiNetLeds start
+
+To prevent the LED indications from automatically starting during boot, use:
+  sudo update-rc.d PiDiskLeds disable
+  sudo update-rc.d PiNetLeds disable

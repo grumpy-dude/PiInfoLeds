@@ -1,27 +1,27 @@
 #!/bin/sh
 ### BEGIN INIT INFO
-# Provides:          hddledPi
-# Required-Start:    $local_fs
+# Provides:          PiNetLeds
+# Required-Start:    $network
 # Required-Stop:
 # Should-Start:
-# Default-Start:      2 3 4 5
-# Default-Stop:
-# Short-Description: Start the hddledPi daemon
-# Description:       A daemon that blinks an LED connected to a GPIO pin on disk activity
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start the PiNetLeds daemon
+# Description:       A daemon that blinks an LED connected to a GPIO pin on network activity
 ### END INIT INFO
 
 PATH=/usr/local/bin:/sbin:/usr/sbin:/bin:/usr/bin
-NAME=hddledPi
-DESC="Disk activity light"
+NAME=PiNetLeds
+DESC="Network activity light"
 # Define LSB log_* functions.
 # Depend on lsb-base (>= 3.0-6) to ensure that this file is present.
 . /lib/lsb/init-functions
 . /lib/init/vars.sh
 
 do_start () {
-        # Start disk activity light
+        # Start network activity light
         log_daemon_msg "Starting $DESC" "$NAME"
-        hddledPi -d -r 20
+        PiNetLeds -d
         log_end_msg $?
 }
 
@@ -36,11 +36,11 @@ case "$1" in
         ;;
   stop)
         log_daemon_msg "Stopping $DESC" "$NAME"
-        killall hddledPi
+        killall PiNetLeds
         log_end_msg $?
         ;;
   *)
-        echo "Usage: hddledPi [start|stop]" >&2
+        echo "Usage: PiNetLeds [start|stop]" >&2
         exit 3
         ;;
 esac

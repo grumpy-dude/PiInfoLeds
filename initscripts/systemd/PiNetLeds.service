@@ -1,0 +1,10 @@
+[Unit]
+Description=PiNetLeds network activity indication
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/usr/local/bin/PiNetLeds -d
+
+[Install]
+WantedBy=default.target

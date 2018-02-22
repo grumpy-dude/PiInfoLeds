@@ -1,0 +1,9 @@
+[Unit]
+Description=PiDiskLeds mass storage activity indication
+
+[Service]
+Type=forking
+ExecStart=/usr/local/bin/PiDiskLeds -d
+
+[Install]
+WantedBy=basic.target
