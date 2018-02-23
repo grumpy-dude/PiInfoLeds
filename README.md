@@ -63,6 +63,7 @@ Option|Action
 -p, --poll interval=MILLISECONDS|Sets the time interval (in milliseconds) between checks for new disk activity.
 -r, --read led=PIN|Set the GPIO pin number connected to the LED indicating disk read activity.
 -w, --write led=PIN|Set the GPIO pin number connected to the LED indicating disk write activity.
+
 __NOTE:__ By default, __PiDiskLeds__ uses *WiringPi* pin 10 by for both read and write activity indication. This pin is also used for the __CE0__ signal in the default configuration of the Pi's __SPI0__ interface. If an add-on utilizing SPI communications is connected, it is likely that another, unused, pin will need to be selected using the *-r* or *-w* option.
 
 ### __PiNetLeds__
@@ -76,6 +77,7 @@ Option|Action
 -p, --poll interval=MILLISECONDS|Sets the time interval (in milliseconds) between checks for new network activity.
 -r, --receive led=PIN|Set the GPIO pin number connected to the LED indicating network reveive activity.
 -t, --transmit led=PIN|Set the GPIO pin number connected to the LED indicating network transmit activity.
+
 __NOTE:__ By default, __PiNetLeds__ uses *WiringPi* pin 11 by for both read and write activity indication. This pin is also used for the __CE1__ signal in the default configuration of the Pi's __SPI0__ interface. If an add-on utilizing SPI communications is connected, it is possible that another, unused, pin will need to be selected using the *-r* or *-t* option.
 
 ### __Example Configurations__
